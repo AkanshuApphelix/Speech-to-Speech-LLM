@@ -7,20 +7,26 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-  <div class="container">
-    <div class="webcam-section">
-      <video id="webcam" autoplay></video>
-    </div>
-    <div class="chat-section">
-      <div id="chat-container" class="chat-container">
+  <body>
+    <header>
+      <h1>Speech to Speech LLM Chatbot</h1>
+    </header>
+  
+    <div class="container">
+      <div class="webcam-section">
+        <video id="webcam" autoplay></video>
       </div>
-      <div class="input-area">
-        <button id="record-btn">Start Recording</button>
-        <input type="text" id="user-input" placeholder="Type or speak your message..." />
-        <button id="submit-btn">Send</button>
+      <div class="chat-section">
+        <div id="chat-container" class="chat-container"></div>
+        <div class="input-area">
+          <button id="record-btn">Start Recording</button>
+          <input type="text" id="user-input" placeholder="Type or speak your message..." />
+          <button id="submit-btn">Send</button>
+        </div>
       </div>
     </div>
-  </div>
+  </body>
+  
 
   <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>

@@ -7,10 +7,25 @@
 
 body {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
     min-height: 100vh;
     background-color: #f3f4f6;
+    margin: 0;
+}
+
+header {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+    background-color: #f3f4f6;
+}
+
+header h1 {
+    font-size: 2em;
+    text-align: center;
+    margin: 0;
 }
 
 .container {
@@ -19,6 +34,7 @@ body {
     width: 80%;
     max-width: 1000px;
 }
+
 
 .webcam-section {
     width: 30%;
