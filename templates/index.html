@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chatbot</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <div class="container">
+    <div class="webcam-section">
+      <video id="webcam" autoplay></video>
+    </div>
+    <div class="chat-section">
+      <div id="chat-container" class="chat-container">
+      </div>
+      <div class="input-area">
+        <button id="record-btn">Start Recording</button>
+        <input type="text" id="user-input" placeholder="Type or speak your message..." />
+        <button id="submit-btn">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
