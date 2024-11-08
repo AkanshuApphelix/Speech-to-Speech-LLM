@@ -32,7 +32,8 @@ header h1 {
     display: flex;
     gap: 20px;
     width: 80%;
-    max-width: 1000px;
+    padding: 70px;
+    max-width: 1200px;
 }
 
 
