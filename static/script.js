@@ -20,12 +20,16 @@ if ('webkitSpeechRecognition' in window) {
 
     // Event listener for when the user starts recording
     recordBtn.addEventListener('click', () => {
-        if (recordBtn.textContent === 'Start Recording') {
-            recognition.start();
-            recordBtn.textContent = 'Stop Recording';
-        } else {
+        if (recordBtn.classList.contains('recording')) {
+            // Stop recording
             recognition.stop();
-            recordBtn.textContent = 'Start Recording';
+            recordBtn.classList.remove('recording');
+            recordBtn.innerHTML = '<i class="fas fa-microphone"></i>';
+        } else {
+            // Start recording
+            recognition.start();
+            recordBtn.classList.add('recording');
+            recordBtn.innerHTML = '<i class="fas fa-microphone-slash"></i>';
         }
     });
 
@@ -42,31 +46,34 @@ if ('webkitSpeechRecognition' in window) {
 
 // Function to handle user input
 function handleUserInput() {
-    const userInput = document.getElementById('user-input').value;
-    if (!userInput.trim()) return;
+    const userInputValue = userInput.value;
+    if (!userInputValue.trim()) return;
 
     // Display user's message
-    addMessage(userInput, 'user');
+    addMessage(userInputValue, 'user');
 
     // Send to backend (Python server) and get response
     fetch('/process_input', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: userInput })
+        body: JSON.stringify({ text: userInputValue })
     })
     .then(response => response.json())
     .then(data => {
         const botMessage = data.response;
         addMessage(botMessage, 'bot');
 
-        // Play audio response
-        const audio = new Audio(data.audio_url);
+        // Decode base64 audio data and play it
+        const audioBase64 = data.audio_data;
+        const audioBlob = new Blob([Uint8Array.from(atob(audioBase64), c => c.charCodeAt(0))], { type: 'audio/mp3' });
+        const audioUrl = URL.createObjectURL(audioBlob);
+        const audio = new Audio(audioUrl);
         audio.play();
     })
     .catch(error => console.error('Error:', error));
 
     // Clear input
-    document.getElementById('user-input').value = '';
+    userInput.value = '';
 }
 
 // Function to add message to chat container

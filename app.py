@@ -1,5 +1,7 @@
 import os
-from flask import Flask, request, jsonify, render_template, send_from_directory, url_for
+import io
+import base64
+from flask import Flask, request, jsonify, render_template
 from gtts import gTTS
 from groq import Groq
 
@@ -17,7 +19,7 @@ def process_input():
 
     # Process the input using the LLM
     response = client.chat.completions.create(
-        model="mixtral-8x7b-32768",  # Groq's Mixtral model
+        model="mixtral-8x7b-32768",
         messages=[
             {"role": "user", "content": user_text}
         ]
@@ -25,21 +27,20 @@ def process_input():
 
     bot_text = response.choices[0].message.content
 
-    # Convert the response to audio and save it to the static folder
-    audio_path = os.path.join('static', 'response.mp3')
+    # Convert the response to audio and prepare it in-memory
     tts = gTTS(bot_text, lang='en')
-    tts.save(audio_path)
+    audio_fp = io.BytesIO()
+    tts.write_to_fp(audio_fp)
+    audio_fp.seek(0)
 
-    # Return text and audio URL
+    # Encode the audio in base64
+    audio_base64 = base64.b64encode(audio_fp.read()).decode('utf-8')
+
+    # Return text and audio data
     return jsonify({
         "response": bot_text,
-        "audio_url": url_for('static', filename='response.mp3')
+        "audio_data": audio_base64
     })
-
-# Serve the audio file from the static folder
-@app.route('/static/<path:filename>')
-def serve_static(filename):
-    return send_from_directory('static', filename)
 
 if __name__ == '__main__':
     app.run(debug=True)

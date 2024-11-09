@@ -163,9 +163,14 @@ header h1 {
         max-height: 300px;
     }
 
-    #submit-btn,
-    #record-btn {
+    #record-btn{
         font-size: 16px;
+        align-items: center;
+    }
+
+    #submit-btn {
+        font-size: 16px;
+       
     }
 }
 
@@ -183,10 +188,12 @@ header h1 {
         font-size: 14px;
     }
 
-    #submit-btn,
-    #record-btn {
+    #record-btn{
         font-size: 14px;
-        padding: 2px 4px;
-        max-height: 50px;
+        align-items: center;
+    }
+    #submit-btn{
+        font-size: 14px;
+       
     }
 }
