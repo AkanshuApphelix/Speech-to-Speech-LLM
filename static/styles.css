@@ -31,14 +31,16 @@ header h1 {
 .container {
     display: flex;
     gap: 20px;
-    width: 80%;
-    padding: 70px;
-    max-width: 1200px;
+    width: 90%;
+    max-width: 1000px;
+    margin-top: 20px;
+    flex-wrap: wrap;
 }
 
-
+/* Webcam Section */
 .webcam-section {
-    width: 30%;
+    width: 100%;
+    max-width: 300px;
     background-color: #e1e1e1;
     border-radius: 8px;
     overflow: hidden;
@@ -49,19 +51,21 @@ header h1 {
     height: auto;
 }
 
+/* Chat Section */
 .chat-section {
-    width: 70%;
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
 }
 
 .chat-container {
     padding: 15px;
-    height: 400px;
+    max-height: 400px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -92,13 +96,12 @@ header h1 {
 }
 
 #user-input {
-    width: 100%;
+    flex: 1;
     height: 40px;
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    resize: none;
 }
 
 #submit-btn {
@@ -114,4 +117,45 @@ header h1 {
 
 #submit-btn:hover {
     background-color: #0056b3;
+}
+
+/* Responsive Media Queries */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .webcam-section,
+    .chat-section {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .chat-container {
+        max-height: 300px;
+    }
+
+    #submit-btn {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.5em;
+    }
+
+    .chat-container {
+        max-height: 250px;
+    }
+
+    #user-input {
+        font-size: 14px;
+    }
+
+    #submit-btn {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
 }
